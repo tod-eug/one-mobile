@@ -1,0 +1,40 @@
+import io.qameta.allure.gradle.task.AllureReport
+
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.7.0'
+}
+
+group 'com.example.one-mobile'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.appium:java-client:7.3.0'
+    compile 'com.codeborne:selenide:5.7.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+test {
+    useJUnit()
+}
+
+allure {
+    autoconfigure = false
+    version = '2.13.1'
+    resultsDir = file("$projectDir/build/test-results/test")
+    reportDir = file('allure')
+    downloadLink = "file:///$projectDir/.allure/allure-2.13.1.zip"
+
+    useJUnit4 {
+        version = '2.13.1'
+    }
+}
+
+task generateAllure(type: AllureReport) {
+}
